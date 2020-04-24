@@ -1,0 +1,518 @@
+/*Section  PhoneVerificationPopup*/
+
+.text_head h4{
+
+font-family: "Open Sans";
+font-weight: 600;
+font-size: 25px;
+color: grey;
+
+}
+.text_head p{
+font-family: "Open Sans";
+font-weight: 300;
+font-size: 14px;
+color: grey;
+
+}
+
+.btn_ok{
+font-weight: 500;
+font-size: 18px;
+color: #fff;
+background-color: #20878C;
+padding: 7px 60px;
+margin-bottom: 5%;
+margin-top:3%;
+cursor: pointer;
+}
+
+/*-------------Section End--------------------*/
+
+
+/*---------Section  LocationPopup--------------*/
+.btn_allow {
+
+font-weight: 500;
+font-size: 18px;
+color: #fff;
+background-color: #20878C;
+margin-bottom: 5%;
+margin-top:3%;
+cursor: pointer;
+}
+
+.cancel_btn{
+font-weight: 500;
+font-size: 18px;
+color: #20878C;
+border:1px solid #20878C;
+margin-bottom: 5%;
+margin-top:3%;
+cursor: pointer;
+}
+.login_btn{
+  font-weight: 400;
+  font-size: 18px;
+  color: #fff;
+  background-color: #20878C;
+  margin-bottom: 5%;
+  margin-top:3%;
+}
+.login_btn:hover{
+  color: #fff;
+  cursor: pointer;
+}
+
+/*-------------Section End--------------------*/
+
+
+/*---------Section  Otpverification--------------*/
+
+.text_head2 .btn1{
+
+font-weight: 500;
+font-size: 18px;
+color: #fff;
+background-color: #20878C;
+cursor: pointer;
+padding: 10px 80px;
+border-radius: 5px;
+
+}
+
+.text_head2 input{
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
+  margin: 10px 10px 10px 10px;
+ text-align: center;
+}
+.cell_button .resend_btn{
+	border-radius: 25px;
+	border:1px solid #ccc;
+	font-size:12px;
+	font-weight: 300px;
+	color: #787878;
+}
+
+/*-------------Section End--------------------*/
+
+
+
+
+
+/*------------Sign UpSection------------*/
+
+.text_head3 h5 {
+font-family: "Open Sans",sans-serif;
+font-weight: 600;
+font-size: 20px;
+color: grey;
+}
+
+.text_head3 p{
+font-family:sans-serif;
+font-weight: 600;
+font-size: 16px;
+color: #000;
+}
+ .btn_continue{
+font-weight: 600;
+font-size: 20px;
+color: #fff;
+background-color: #20878C;
+padding: 10px 50px;
+margin-top: 10%;
+cursor: pointer;
+border-radius: 7px;
+ }
+ .btn_continue:hover{
+color: #fff;
+
+ }
+
+.txt_signup{
+ 	font-family: sans-serif;
+ 	font-size: 14px;
+ 	font-weight: 900px;
+ 	color: #606060;
+ }
+ .hr_styel hr { 
+  display: block;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  color: grey; 
+  background-color: lightgrey;
+  border-style: inset;
+  border-width: 1px;
+}
+.btn_fblogin{
+font-weight: 600;
+font-size: 20px;
+color: #fff;
+background-color: #008CBA;
+padding: 10px 50px;
+cursor: pointer;
+border-radius: 7px;
+ }
+.btn_fblogin:hover{
+  color: #fff;
+ }
+
+ #btn_google {
+ display: inline-block;
+ background:#FFF;
+ border-radius: 7px;
+ border: 1px solid lightgrey;
+ padding: 10px 50px;
+}
+#btn_google:hover {
+ cursor: pointer;
+}
+span.buttonText {
+display: inline-block;
+vertical-align: middle;
+font-weight: 600;
+font-size: 20px;
+color: grey;
+}
+#btn_google .google-button__icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: 18px;
+  height: 18px;
+  margin-top: 4px;
+}
+.policy{
+
+  font-family: sans-serif;
+  font-size: 12px;
+  font-weight: 300px;
+  color: grey
+}
+
+#signUpModal .modal-body {
+  background: linear-gradient(
+    to right, 
+    #ffffff 0%, 
+    #ffffff 58%, 
+    #F7F7F7 58%, 
+    #F7F7F7 100%
+  );
+}
+.head h6{
+font-family: "Open Sans",sans-serif;
+font-weight: 600;
+font-size: 18px;
+color: grey;
+}
+
+.head p{
+font-family:sans-serif;
+font-weight: 300;
+font-size: 13px;
+color: grey; 
+}
+
+.btn_signup{
+font-weight: 700;
+font-size: 20px;
+color: #20878C;
+border:2px solid #20878C;
+height: 55px;
+margin-top:10%;
+cursor: pointer;
+border-radius: 7px;
+box-shadow: 1px 1px 1px 1px lightgrey;
+ }
+.btn_signup:hover{
+color: #20878C;
+
+ }
+.register span{
+font-family: sans-serif;
+font-weight: 600;
+font-size: 16px;
+color: grey; 
+  
+}
+.register a{
+font-family: sans-serif;
+font-weight: 500;
+font-size: 16px;
+color: #20878C; 
+
+}
+
+/*------------End Section------------*/
+
+
+
+
+/*---------personal Details-----------*/
+
+.terms_con span {
+  font-size: 12px;
+  font-weight: 300px;
+  color: grey;
+
+}
+
+.terms_con a{
+  font-size: 12px;
+  font-weight: 300px;
+  color:#20878C ;
+}
+
+.Acc_btn {
+
+font-weight: 400;
+font-size: 18px;
+color: #fff;
+background-color: #20878C;
+padding: 7px 40px;
+
+}
+.Acc_btn:hover{
+color: #fff;
+cursor: pointer;
+}
+.field-icon {
+  float: right;
+  margin-left: -25px;
+  margin-top: -30px;
+  position: relative;
+  z-index: 2;
+  color: grey;
+  
+}
+
+/*----------End Section---------------*/
+
+
+
+/*-----------Get Phone Number---------*/
+
+.nxt_btn{
+
+font-size: 16px;
+color: #20878C;
+border:2px solid #20878C;
+cursor: pointer;
+border-radius: 5px;
+padding: 3px 40px;
+margin-top: 6%;
+margin-bottom: 22%;
+}
+
+.back_btn {
+
+font-size: 16px;
+color:#000;
+border:2px solid grey;
+cursor: pointer;
+border-radius: 5px;
+padding: 3px 40px;
+margin-top: 6%;
+margin-bottom: 22%;
+}
+
+
+/*-----------End the Section---------------*/
+
+
+
+
+
+/*----------------Service provoider section css-------------*/
+
+.prize{
+
+font-weight: 600;
+font-size: 25px;
+color: grey;
+}
+.minutes{
+
+font-weight: 400;
+font-size: 25px;
+color: grey;
+
+}
+.txt_provoider{
+font-weight: 600;
+
+}
+.select_btn{
+
+font-weight: 500;
+font-size: 16px;
+color: #fff;
+background-color: #20878C;
+padding: 8px 30px;
+}
+.fav_cancel{
+font-weight: 500;
+font-size: 16px;
+color: #606060;
+border-color: #ccc;
+background-color: #fff;
+padding: 8px 25px;
+}
+/*-----------End of the section------------------*/
+
+
+
+/*----------------Tip provider section css-------------*/
+#tipproviderpopup .send_tip{
+font-weight: 500;
+font-size: 18px;
+color: #fff;
+background-color: #299494;
+cursor: pointer;
+padding: 8px 80px;
+border-radius: 5px;
+}
+#tipproviderpopup .tip{
+  border: 1px solid lightgrey;
+  padding: 25px 20px 25px 20px;
+  border-radius: 100%;
+  color: #787878;
+  margin: 15px;
+  cursor: pointer;
+}
+
+#tipproviderpopup .active{
+  border: 1px solid #299494;
+  padding: 25px 20px 25px 20px;
+  border-radius: 100%;
+  color: #299494;
+  margin: 15px;
+  cursor: pointer;
+}
+/*-----------End of the section------------------*/
+
+
+
+/* ------------complaintpopup------------- */
+#complaintpopup .com_txt{
+  color:grey ;
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 10px;
+}
+#complaintpopup .com_head{
+  font-family: "Open sans";
+  font-size: 24px;
+  letter-spacing: 1px;
+  
+}
+#complaintpopup label{
+  color:grey ;
+  font-size: 15px;
+  font-weight:300;
+}
+#complaintpopup .btn_complaint{
+font-weight: 500;
+font-size: 16px;
+color: #fff;
+background-color: #20878C;
+padding: 5px 30px;
+cursor: pointer;
+margin-bottom: 10%;
+margin-top: 10%;
+}
+#complaintpopup input[type='radio']:after {
+  width: 20px;
+  height: 20px;
+  border-radius: 20px;
+  top: -2px;
+  left: -1px;
+  position: relative;
+  background-color:#fff;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 1px solid #787878;
+}
+
+#complaintpopup input[type='radio']:checked:after {
+  width: 20px;
+  height: 20px;
+  border-radius:20px;
+  top: -2px;
+  left: -1px;
+  position: relative;
+  background-color: #299494;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 1px solid #299494;
+}
+
+
+
+
+
+/* ------------SpecialOffer------------- */
+
+.txt1{
+ font-size: 18px;
+ font-weight: 400;
+ color: #787878;
+}
+
+.sp_offer{
+font-weight: 400;
+font-size: 16px;
+color: #fff;
+background-color: #20878C;
+padding: 8px 30px;
+cursor: pointer;
+margin-bottom: 8%;
+margin-top: 8%;
+
+}
+#subtotal {
+  width: 35%;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  border: 1px solid #299494;
+  border-radius: 4px;
+}
+
+
+
+/* ------------Booking Approval------------- */
+h6{
+  font-size: 16px;
+  color: #666666;
+  font-weight: 400;
+}
+ .content_txt{
+  font-size: 14px;
+  color: #666666;
+  font-weight: 400;
+}
+
+.btn_detail{
+  color: #ffffff;
+  background-color: #299494;
+  font-weight: 400;
+  font-size: 18px;
+  padding: 6px 20px;
+}
+ .direction{
+  color: #299494;
+  font-weight: 400;
+  text-decoration: none;
+}
+ .btn_reserv{
+color: #666666;
+background: transparent;
+border-color: #666666;
+padding: 6px 20px;
+text-transform: uppercase;
+font-size: 16px;
+}
