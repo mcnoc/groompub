@@ -23,7 +23,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/groom/';
+// $config['base_url'] = 'http://localhost/groom/';
+$config['base_url'] = 'http://localhost/groompub/';
 $config['map_api'] = 'AIzaSyD1Q--u0p3EIbVMnBiwE2Y_8D7RO8VBWTo';
 $config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-@\=';
 /*

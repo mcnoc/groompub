@@ -145,7 +145,7 @@
         </div>
         </form>
         <div class="text-center mt-4">
-          <p style="text-decoration: underline;font-size: 20px; font-weight: 600;"><a href="#" style="color: #000; text-decoration-color:gray; ">Forgot password?</a></p>
+          <p style="text-decoration: underline;font-size: 20px; font-weight: 600;"><a href="#" style="color: #000; text-decoration-color:gray; " onclick="userForgotPassword();">Forgot password?</a></p>
         </div>
 
         <div class="text-center mt-3 mb-3">
@@ -211,13 +211,13 @@
             <!--------------------------->
                        <div class="col-sm-5">
                           <div class="head">
-                            <h6>Service Provoider or Shop Owner</h6>
+                            <h6>Service Provider or Shop Owner</h6>
                             <p>Manage your Profile,Calender,Services and more</p>                     
                           </div>
 
                           <button class="btn btn_signup btn-block">Sign Up</button>
                             
-                            <div class="register text-center mt-5"><span>Already registered?</span><a href="#">Login</a></div>
+                            <div class="register text-center mt-5"><span>Already registered?</span> <a  href="#" data-toggle="modal" data-target="#login" onclick="closeSignupModal();">Login</a></div>
 
                         </div>
                     </div>
@@ -257,7 +257,7 @@
                   </button>
                   
             <div class="form_details mt-4">
-                     <h6 class="text-center"><strong style="color:#606060;">Provoide your phone number to Continue</strong></h6>   
+                     <h6 class="text-center"><strong style="color:#606060;">Provide your phone number to Continue</strong></h6>   
                
                 <form id="frm_contact" class="mt-5 col-sm-11 mr-auto ml-auto">
 
@@ -265,15 +265,18 @@
                         <input type="hidden"  id="hide_email">
                         <input type="hidden" id="hide_modal_id" name="hide_modal_id"> 
                         <input type="number" class="form-control" id="u_mobile" placeholder="Phone Number">
+                        <span id="u_mobile_err_msg" class="errorMessageCls"></span>
                         </div>
                 
 
                  <div class="row text-center ">
                   <div class="col-sm-3"></div>
                   
-                   <button class="btn col-sm-3 back_btn mr-2 btn_back " style="height:30px; width:100px;" data-dismiss="modal">Back</button>
+                   <button class="btn col-sm-3 back_btn mr-2 btn_back " style="height:30px; width:100px;" data-dismiss="modal" onclick="openSignupModalFromContactBack();">Back</button>
                 
-                   <button class="btn col-sm-3 nxt_btn ml-2" style="height:30px; width:100px;" id="mobile_btn" data-dismiss="modal" data-toggle="modal" data-target="#presonaldetails" data-whatever="@mdo">Next</button>
+                   <!-- <button class="btn col-sm-3 nxt_btn ml-2" style="height:30px; width:100px;" id="mobile_btn" data-dismiss="modal" data-toggle="modal" data-target="#presonaldetails" data-whatever="@mdo">Next</button> -->
+
+                   <button class="btn col-sm-3 nxt_btn ml-2" style="height:30px; width:100px;" id="mobile_btn">Next</button>
                  </div>
                   </form>
                  <div class="col-sm-3"></div>
@@ -306,44 +309,51 @@
                      <h6 class="text-center"><strong style="color:#606060;">Please leave the contact details here</strong></h6>   
                
                
-                <form id="prof_form"  enctype="multipart/form-data" method="post" class="form-horizontal" id="register_user" name="register_user" data-toggle="validator">
+                <form id="prof_form"  enctype="multipart/form-data" method="post" class="form-horizontal" name="register_user" data-toggle="validator">
                 
                       <div class="form-group">
                       <input type="email" class="form-control " id="prof_email" name="u_email" placeholder="Email" >
+                      <span id="email_err_msg" class="errorMessageCls"></span>
                
                       </div>
                       <div class="form-group mt-4">
                       <input type="text" class="form-control " id="fname" name="fname" placeholder="First Name" value="" onkeypress="return (event.charCode > 64 && 
 	event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)">
+                        <span id="fname_err_msg" class="errorMessageCls"></span>
                       </div>
                       <div class="form-group mt-4">
                       
                       <input type="text" class="form-control" placeholder="Last Name" id="lname" name="lname">
+                      <span id="lname_err_msg" class="errorMessageCls"></span>
                
                       </div>
 
                       <div class="form-group mt-4">
                       <input type="number" class="form-control" id="prof_mob" name="mobile" placeholder="Mobile">
+                      <span id="number_err_msg" class="errorMessageCls"></span>
                
                       </div>
                       <div class="form-group mt-4">
-                      <input type="password" class="form-control " id="spwd" name="pwd" placeholder="set Password">
-                         <span toggle="#password-field" class="field-icon">show &nbsp;</span>
+                      <input type="password" class="form-control " id="spwd" name="pwd" placeholder="Password">
+                         <span toggle="#password-field" class="field-icon" onclick="showHidePassword()"><span id="passShowHideBut" style="padding-right: 10px;">Show </span></span>
+                         <br>
+                         <span id="password_err_msg" class="errorMessageCls"></span>
                       </div>
                       <div class="form-group">
                 <div class="col-md-12">
                 <label for="gender">Gender <span class="cls_star">*</span></label>
                 <select class="form-control" id="radio_gender" name="radio_gender" required>
                     <option value="" >Select Gender</option>
-                  <option value="male" >Female</option>
-                  <option value="female" >Male</option>
+                  <option value="female" >Female</option>
+                  <option value="male" >Male</option>
                   <option value="other" >Rather not say</option>
                 </select>
+                <span id="gender_err_msg" class="errorMessageCls"></span>
               </div>
               </div>
                   <input type="hidden" name="u_chk" id="u_chk" >
-                   <div class="text-center terms_con mt-3"><span>By clicking below,you agree to our</span><a href="#">Terms & Conditions</a>
-                   </div>
+                  <!--  <div class="text-center terms_con mt-3"><span>By clicking below,you agree to our</span><a href="#">Terms & Conditions</a>
+                   </div> -->
                       <div class="text-center">
                         <button type="submit" class="btn Acc_btn mt-5 " id="send_btn" >Create Account</button>
           	  
@@ -397,7 +407,7 @@
 
   <!------------error Section end------ -->
 
-  <section>
+  <!-- <section>
   
 
   <div class="modal fade" id="otpmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -440,7 +450,7 @@
     </div>
   </div> 
      
-</section>
+</section> -->
 
 <!-------------otp Section End------ -->
 
@@ -492,18 +502,19 @@
           <div class="text_head2 mt-3"><p>Please Enter the 4-digit code you received via text message.</p></div>
             <input type="hidden" id="otpemail" >
             <input type="hidden" id="user_id" >
+            <input type="hidden" id="otpmobile" >
           <div class="text_head2 " style="margin-top: 10%;"> 
-                                        <span><input type="text" class="inputs_code" maxlength="1" name="code1" id="code1" onkeyup="focus_text1()" ></span>
-                                        <span><input type="text" class="inputs_code" maxlength="1" name="code2" id="code2" onkeyup="focus_text2()" ></span>
-                                        <span><input type="text" class="inputs_code" maxlength="1" name="code3" id="code3" onkeyup="focus_text3()"></span>
-                                        <span><input type="text" class="inputs_code" maxlength="1" name="code4" id="code4" ></span>
+                                        <span><input type="text" class="inputs_code" maxlength="1" name="code1" id="code1" onkeyup="focusText1();" style="text-align: center;"></span>
+                                        <span><input type="text" class="inputs_code" maxlength="1" name="code2" id="code2" onkeyup="focusText2();" style="text-align: center;"></span>
+                                        <span><input type="text" class="inputs_code" maxlength="1" name="code3" id="code3" onkeyup="focusText3();" style="text-align: center;"></span>
+                                        <span><input type="text" class="inputs_code" maxlength="1" name="code4" id="code4" style="text-align: center;"></span>
                                   
           </div>
 <div class="col-xs-3">
            <div class="cell_button mt-5">
             <div class="col-12" style="  margin-top: 10%;">
-            <button type="button" class="btn resend_btn ">Resend to +1 910-423-4977</button>
-            <button type="button" class="btn resend_btn ">Resend to +1 910-423-4977</button>
+            <button type="button" class="btn resend_btn" id="resend_otp_btn">Resend to <span id="resend_otp_no"></span></button>
+            <p id="resend_otp_response_msg" class="successMessageCls"></p>
            </div>
            </div>
 
@@ -530,7 +541,7 @@
 
 <section>
 
-  <div class="modal fade" id="providerModal-" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="providerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header" style="border: none;">
@@ -545,7 +556,7 @@
 
           <div class="text_head mt-3"><p id="success_text"></p></div>
 
-          <div class="text_head mt-4"><button class="btn btn1" id="verified" onClick="window.location.href = '<?php echo base_url();?>admin/index';return false;">Ok</button></div>
+          <div class="text_head mt-4"><button class="btn btn1" id="verified" onClick="window.location.href = '<?php echo base_url();?>home/index';return false;">Ok</button></div>
 
         </div>
         
@@ -554,3 +565,45 @@
   </div> 
      
 </section>
+
+<section>
+   
+
+          <div class="modal fade" id="user_forgot_password" tabindex="-1" role="userForgotPassword" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog " role="document"  >
+              <div class="modal-content">
+          
+                <div class="modal-body">
+                   
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  
+            <div class="form_details mt-4">
+                     <h4 class="text-center">Forgot Password</h4>
+                     <h6 ><strong style="color:#606060;">Enter your email address and will send you a code to reset your password</strong></h6>   
+                
+                <p id="forgot_pass_response_msg" class="successMessageCls"></p>
+                
+                <form id="user_forgot_pass_form" class="mt-5">
+
+                        <div class="form-group">
+                        <input type="text" class="form-control" id="recovery_email" placeholder="Enter Email Address">
+                        <span id="email_address_err_msg" class="errorMessageCls"></span>
+                        </div>
+                
+
+                 <div class="row text-center ">
+                  <div class="col-sm-3"></div>
+                   <button type="button" class="btn col-sm-6 nxt_btn ml-2" style="height:30px; width:100px;" id="forogt_pass_btn">Send</button>
+                 </div>
+                  </form>
+                 <div class="col-sm-3"></div>
+             </div>
+                
+                </div>
+              </div>
+            </div>
+          </div> 
+             
+  </section>

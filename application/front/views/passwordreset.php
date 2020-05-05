@@ -5,7 +5,7 @@ input.form-control{
     border: solid 2px #008080 !important;
   }
 </style>
-<section class="block">
+<section class="block" style="margin-top:120px;">
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-8 col-sm-offset-2">
@@ -25,11 +25,11 @@ input.form-control{
                       <input type="hidden" name="forgot_token" id="forgot_token" value="<?php echo $token;?>">
                       <div class="form-group">
                            <label> <span class="label-text"> Password <span class="cls_star">*</span></span> </label>
-                           <input type="password" class="form-control " id="pwd" name="pwd">
+                           <input type="password" class="form-control " id="pwd" name="pwd" required>
                       </div>
                       <div class="form-group">
                            <label> <span class="label-text">Confirm Password <span class="cls_star">*</span></span> </label>
-                           <input type="password" class="form-control " id="c_pwd" name="c_pwd">
+                           <input type="password" class="form-control " id="c_pwd" name="c_pwd" required>
                       </div>
                       <div class="form-group" style="text-align:center;">
                         <button type="submit"  id="varification" class="btn btn-default full-width-btn rotate-btn" style="float:none;"><span>UPDATE</span></button>

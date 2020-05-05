@@ -10,7 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Login extends MY_Controller {
     function __construct() {
         parent::__construct();
-        $this->load->helper(array('url'));
+        $this->load->helper(array('url','custom_helper'));
         $this->load->model('general_model');
          // Load facebook library
         $this->load->library('facebook');
@@ -389,7 +389,7 @@ class Login extends MY_Controller {
                           $msg = 'Activation code sent to email';
                           $this->data['success'] = $msg;
                           $this->data['user_data'] = $u_email;
-                            $this->data['title'] = 'Verification | GGG Rooms';
+                          $this->data['title'] = 'Verification | GGG Rooms';
                           $this->render('verification');
                         }else{
                             $this->session->set_flashdata('error_message', "Sorry, something went wrong. please try again");
@@ -669,60 +669,149 @@ public function checkemail()
         }
       }
 
-      public function password_reset($token){
+  /*this function is used for password reset*/
+  public function password_reset($token){
+    if ($this->input->post()){
+      $this->load->helper('form','url');
+      $this->load->library('form_validation');
 
-        if ($this->input->post()){
-            $this->load->helper('form','url');
-            $this->load->library('form_validation');
+      $this->form_validation->set_rules('pwd', 'Password', 'required');
+      $this->form_validation->set_rules('c_pwd', 'Conform Password', 'required|matches[pwd]');
+      if ($this->form_validation->run() == false) {
+        $this->session->set_flashdata('error_message', "Password and confirm password is require");
+        redirect('passwordreset/'.$token);
+      }
+      else{
+        $this->db->select("*");
+        $this->db->from("user");
+        $this->db->where('token',$token);
+        $query = $this->db->get();
+        $res = $query->result();
+        $email = $res[0]->email;
+        $username = $res[0]->username;
+        $firstname = $res[0]->firstname;
+        $t_id = $res[0]->id;
 
-          $this->form_validation->set_rules('pwd', 'Password', 'required');
-          $this->form_validation->set_rules('c_pwd', 'Conform Password', 'required|matches[pwd]');
-          if ($this->form_validation->run() == false) {
-            $this->session->set_flashdata('error_message', "Password and confirm password is require");
-            redirect('passwordreset/'.$token);
+        if ($query->num_rows() == 0)
+        {
+          $this->session->set_flashdata('error_message', "Sorry!!! Invalid Request!");
+          // redirect('login', 'refresh');
+          redirect('home', 'refresh');
+        }
+        else
+        {
+          $data = array(
+            'password' => md5($this->input->post('pwd')),
+            'token' => ''
+          );
+
+          $where=$this->db->where('token', $token);
+                 $this->db->update('user',$data);
+          if($where){
+            $emailsend = $this->general_model->change_pwd_Email($email, $firstname);
+            if($emailsend){
+              $sess_data = array('login' => TRUE, 'email' => $email, 'username' => $username, 'uid' => $t_id, 'firstname' => $firstname);
+              $this->session->set_userdata($sess_data);
+
+              $this->session->set_flashdata('success_message', "Your password has been reset, Try to Login with the new Password.");
+              redirect('home', 'refresh');
+            }
+            else{
+              $this->session->set_flashdata('error_message', 'Sorry, something went wrong. please try again');
+              redirect('home', 'refresh');
+            }
           }
-          else{
-            $this->db->select("*");
-            $this->db->from("user");
-            $this->db->where('token',$token);
-            $query = $this->db->get();
-            $res = $query->result();
-            $email = $res[0]->email;
-            $username = $res[0]->username;
-            $firstname = $res[0]->firstname;
-            $t_id = $res[0]->id;
-
-            if ($query->num_rows() == 0)
-            {
-                  $this->session->set_flashdata('error_message', "Sorry!!! Invalid Request!");
-                  redirect('login', 'refresh');
-            }
-            else
-            {
-              $data = array(
-                'password' => md5($this->input->post('pwd')),
-                'token' => ''
-              );
-
-              $where=$this->db->where('token', $token);
-                     $this->db->update('user',$data);
-              if($where){
-                $emailsend = $this->general_model->change_pwd_Email($email, $firstname);
-                if($emailsend){
-                  $sess_data = array('login' => TRUE, 'email' => $email, 'username' => $username, 'uid' => $t_id, 'firstname' => $firstname);
-                  $this->session->set_userdata($sess_data);
-
-                  $this->session->set_flashdata('success_message', "Your password has been reset, Try to Login with the new Password.");
-                  redirect('home', 'refresh');
-                }
-                else{
-                  $this->session->set_flashdata('error_message', 'Sorry, something went wrong. please try again');
-                  redirect('home', 'refresh');
-                }
-              }
-            }
+        }
+      }
     }
   }
-}
+
+  
+  /*resendOtp function start*/
+  /*This function used for resend otp*/
+  public function resendOtp(){
+    $email = $this->input->post('otp_email');
+    $mobile = $this->input->post('otp_mobile');
+
+    if($email != '' && $mobile != ''){
+
+      $code = rand(1111,9999);
+
+      $data = [
+        'code' => $code
+      ];
+
+      $res = $this->general_model->update_verification_code($data, 'user', array('email' => $email));
+
+      if($res) {
+        
+        $main_image = base_url()."front/images/nochats.png";
+
+        $email_message =
+        "<html>
+            <head>
+              <title>Verification Code</title>
+            </head>
+            <body>
+            <div style=text-align:center;><img src=".$main_image." width=200 height=100 /></div>
+            <p>Hi,</p>
+            <p><b>Your verification code:</b><br/>".$code."</p>
+            </body>
+        </html>";
+
+        $subject = 'Resend otp';
+
+        sendMail($email, $subject, $email_message);
+
+        $sms_message = urlencode("Your verification code: ".$code."");
+        sendSms($mobile, $sms_message);
+
+        echo 'success';
+      }else{
+        echo 'failed';
+      }
+    }else{
+      echo 'failed';
+    }
+  }
+  /*resendOtp function end*/
+
+
+  /*user_forgot_password function start*/
+  /*This function used for forgot password*/
+  public function user_forgot_password(){
+
+    $email = $this->input->post('recovery_email');
+
+    if($email != ''){
+      $this->db->select('email');
+      $this->db->from('user');
+      $this->db->where('email',$email);
+      $count = $this->db->get()->row();
+      $count = count($count);
+      $count = (int)$count;
+      if($count > 0){
+        $this->load->helper('string', 6);
+        $token= random_string('alnum', 12);
+
+        $data = array(
+            'token' => $token
+        );
+
+        $qry = $this->db->where('email', $email)
+                        ->update('user', $data);
+
+        $emailsend = $this->general_model->forgot_pwd_Email($email, $token);
+
+        echo '1';
+
+      }else{
+        echo '2';
+      }
+    }else{
+      echo '3';
+    }  
+  }
+  /*user_forgot_password function end*/
 
 }
