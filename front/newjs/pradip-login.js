@@ -106,7 +106,13 @@ $(document).ready(function(){
 		$("#hide_email").val(butval);
 		//alert(modal_val);
 		$("#hide_modal_id").val(modal_val);
-			$("#phonedetails").modal('show');  
+			//$("#phonedetails").modal('show'); 
+			$('#phonedetails').modal({
+		        backdrop: 'static',
+		        keyboard: false, 
+		        show: true
+		    }); 
+
 			return true;
 		}
 		else
@@ -135,14 +141,25 @@ $(document).ready(function(){
 		 	return false;
 	   	}else{
 
-	   		$('#u_mobile_err_msg').html("");
+	   		if(mobval.toString().length != 10){
+	   			$('#u_mobile_err_msg').html("Phone number must be 10 digit");
+		 		return false;
+	   		}else{
 
-	   		$("#u_chk").val(modalval);	 
-			$("#prof_email").val(emailval);	
-			$("#prof_mob").val(mobval);
+		   		$('#u_mobile_err_msg').html("");
 
-			$("#phonedetails").modal('hide');
-			$("#presonaldetails").modal('show'); 
+		   		$("#u_chk").val(modalval);	 
+				$("#prof_email").val(emailval);	
+				$("#prof_mob").val(mobval);
+
+				$("#phonedetails").modal('hide');
+				//$("#presonaldetails").modal('show');
+				$('#presonaldetails').modal({
+			        backdrop: 'static',
+			        keyboard: false, 
+			        show: true
+			    }); 
+			} 
 	   	}
 	  	
   	});	
@@ -294,12 +311,30 @@ $(document).ready(function(){
 			$('#number_err_msg').html("");
 		}
 
+		if(mobile!=""){
+			if(mobile.toString().length != 10){
+	   			$('#number_err_msg').html("Mobile number must be 10 digit");
+		 		flag = false;
+	   		}else{
+	   			$('#number_err_msg').html("");
+	   		}
+		}
+
 		if(pwd=="")
 		{
 			$('#password_err_msg').html("Password field is empty");
 			flag = false;
 		}else{
 			$('#password_err_msg').html("");
+		}
+
+		if(pwd!=""){
+			if(pwd.toString().length < 6){
+	   			$('#password_err_msg').html("Password length must be a minimum 6");
+		 		flag = false;
+	   		}else{
+	   			$('#password_err_msg').html("");
+	   		}
 		}
 
 		if(radio_gender=="")
@@ -346,7 +381,13 @@ $(document).ready(function(){
 					{
 						var json_data = JSON.parse(data);
 						 
-						$("#otpmodal").modal('show');
+						//$("#otpmodal").modal('show');
+						$('#otpmodal').modal({
+					        backdrop: 'static',
+					        keyboard: false, 
+					        show: true
+					    }); 
+
 						$("#user_id").val(u_chk);
 						$("#otpemail").val(json_data.user_data);
 
@@ -450,7 +491,7 @@ $(document).ready(function(){
 							$("#presonaldetails").modal('hide');
 							$("#otpmodal").modal('hide');			
 							$("#providerModal").modal('show');  
-		              		$('#success_text').html('Your Phone number has been verified successfully.');
+		              		$('#success_text1').html('Your Phone number has been verified successfully.');
 						
 						}
 						else
@@ -555,33 +596,71 @@ $(function(){
 	        
 	    var email = $('#email').val();
 	    var password = $('#password').val();
-	           
-	           
+	    
+	    $('#failed_text').html("");
+	    $("#login_button").attr("disabled", true);
+      
 	    $.ajax({  
-	        url:'login/user_login',  
+	        // url:'login/user_login',
+	        url:'login/user_login_new',  
 	        method:"POST",  
 	        data: {email:email, pwd:password},  
 	        success:function(data)  
 	        { 
-				if (!$.trim(data)){ 					 
-					$("#errorModal").modal('show');  
+	        	/*old code*/
+				// if (!$.trim(data)){ 					 
+				// 	$("#errorModal").modal('show');  
+	   			//            	$('#failed_text').html("UserName or password is wrong");
+	   			//            	return false;		  
+	   			//          }else{
+					
+				// 	$("#login").modal('hide');
+				// 	window.location.reload();				
+				
+				// 	var res = $(data).filter('span.redirect');
+	   			//            	if($(res).html() != null){
+	   			//                	[removed].href=$(res).html(); //window./location./href could not post so ignore /
+				//   		return true;
+				//   	}              
+	   			//          }
+
+	   			$("#login_button").attr("disabled", false);
+
+	   			var res = data.split("|||||");
+
+	   			if (res[0] === '1'){ 					 
 	              	$('#failed_text').html("UserName or password is wrong");
 	              	return false;		  
+	            }else if(res[0] === '2'){
+	            	$("#login").modal('hide');
+					window.location.reload();	
+	            }else if(res[0] === '3'){
+	            	$("#login").modal('hide');
+
+	            	$('#otpmodal').modal({
+					        backdrop: 'static',
+					        keyboard: false, 
+					        show: true
+					    }); 
+
+					$("#user_id").val(res[1]);
+					$("#otpemail").val(res[2]);
+
+					$("#otpmobile").val(res[3]);
+					$("#resend_otp_no").html(res[3]);
+
+	            }else if(res[0] === '4'){
+	            	$('#failed_text').html("Please enter correct username and password");
+	              	return false;
 	            }else{
-					
-					$("#login").modal('hide');
-					window.location.reload();				
-				
-					var res = $(data).filter('span.redirect');
-	              	if($(res).html() != null){
-	                  	[removed].href=$(res).html(); //window./location./href could not post so ignore /
-				  		return true;
-				  	}              
+					$('#failed_text').html("Something went wrong, please try again");
+	              	return false;
 	            }
-			}
-						 
-		});
-                      
+			},error: function(errorThrown){
+		    	$("#login_button").attr("disabled", false);
+		    	$('#failed_text').html("There is an error with AJAX!");
+		    }    		 
+		});             
     });
 
 });	
@@ -628,5 +707,10 @@ function focusText3()
 function userForgotPassword(){ 
 	$('#forgot_pass_response_msg').html('');
 	$("#login").modal('hide');
-	$("#user_forgot_password").modal('show'); 
+	//$("#user_forgot_password").modal('show'); 
+	$('#user_forgot_password').modal({
+        backdrop: 'static',
+        keyboard: false, 
+        show: true
+    }); 
 };

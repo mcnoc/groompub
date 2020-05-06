@@ -286,6 +286,100 @@ class Login extends MY_Controller {
                   }
               }
     }
+
+  /*user_login_new function start*/
+  /*this function used for login*/
+  public function user_login_new(){
+      
+    $this->load->helper('form','url');
+    $this->load->library('form_validation');
+
+    $this->form_validation->set_rules('email', 'email', 'required');
+    $this->form_validation->set_rules('pwd', 'Password', 'required');
+
+    if ($this->input->post()) {
+      if ($this->form_validation->run() == false) {
+        //response
+        echo '1';
+      } else {
+
+        $email = $this->input->post('email');
+        $pwd2 = $this->input->post('pwd');
+        $password = md5($this->input->post('pwd'));
+        $remember = $this->input->post('remember');
+
+        if($remember){
+          setcookie("remember", $remember, time() + (86400 * 30), "/");
+          setcookie("rem_email", $email, time() + (86400 * 30), "/");
+          setcookie("rem_pass", $this->input->post('pwd'), time() + (86400 * 30), "/");
+        }
+
+        $uresult = $this->general_model->check_data( 'user', array('email' => $email, 'password' => $password));
+        
+        if (count($uresult) > 0)
+        { 
+          
+          $verification = $this->general_model->check_verification('user', array('email' => $email, 'is_active' => 1));
+
+          $check_verify = count($verification);
+
+          if($check_verify == 1){
+            $sess_data = array('login' => TRUE, 'email' => $uresult[0]->email, 'username' => $uresult[0]->username, 'uid' => $uresult[0]->id, 'firstname' => $uresult[0]->firstname, 'usertype' => $uresult[0]->u_category);
+            $this->session->set_userdata($sess_data);
+
+            $uid = $this->session->userdata('uid');
+            //response
+            echo '2';
+
+          }else{
+
+            $set = '1234567890';
+            $code = substr(str_shuffle($set), 0, 4);
+
+            $data = array(
+                'code' => $code,
+            );
+
+            $update_id = $this->general_model->update_verification_code($data, 'user', array('email' => $uresult[0]->email));
+            
+            if ($update_id) {
+
+              $main_image = base_url()."front/images/nochats.png";
+
+              $email_message =
+              "<html>
+                  <head>
+                    <title>Verification Code</title>
+                  </head>
+                  <body>
+                  <div style=text-align:center;><img src=".$main_image." width=200 height=100 /></div>
+                  <p>Hi,</p>
+                  <p><b>Your verification code:</b><br/>".$code."</p>
+                  </body>
+              </html>";
+
+              $subject = 'Account verification';
+
+              sendMail($email, $subject, $email_message);
+
+              $mobile = $uresult[0]->mobile;
+
+              $sms_message = urlencode("Your verification code: ".$code."");
+              sendSms($mobile, $sms_message);
+              //response
+              echo '3|||||'.$uresult[0]->u_category.'|||||'.$uresult[0]->email.'|||||'.$uresult[0]->mobile;
+            }
+          }
+        }
+        else {
+
+            //response
+            echo '4';
+        }
+      }
+    }
+  }
+  /*user_login_new function end*/
     
     public function logout(){
       $data = array('login' => '', 'email' => '',  'firstname' => '', 'uid' => '');
@@ -384,17 +478,25 @@ class Login extends MY_Controller {
                       $smssend=$this->general_model->sendConfirmationSms($u_data);
                         // echo $emailsend;exit;
                         // <p style="text-align:center;font-size: 18px;line-height: 5px;"><b>Just one more step</b></p><br/>You have almost completed your registration. We have sent you a activation code to the email address you provided. Please check out your inbox to confirm your registration.<br/> Thank you!<br/><br/><p style="text-align:center;font-size: 18px;line-height: 5px;margin-top: 22px;">Did not receive your activation code?</p><div style="text-align:center;"><button type="button" id="resend_code" style="padding: 5px;">RESEND EMAIL</button></div>
-                        if($emailsend){
+                        // if($emailsend){
+                        //   $inserted_id = $this->general_model->insert_user($data, 'user');
+                        //   $msg = 'Activation code sent to email';
+                        //   $this->data['success'] = $msg;
+                        //   $this->data['user_data'] = $u_email;
+                        //   $this->data['title'] = 'Verification | GGG Rooms';
+                        //   $this->render('verification');
+                        // }else{
+                        //     $this->session->set_flashdata('error_message', "Sorry, something went wrong. please try again");
+                        //     redirect('', 'refresh');
+                        //  }
+
                           $inserted_id = $this->general_model->insert_user($data, 'user');
                           $msg = 'Activation code sent to email';
                           $this->data['success'] = $msg;
                           $this->data['user_data'] = $u_email;
                           $this->data['title'] = 'Verification | GGG Rooms';
                           $this->render('verification');
-                        }else{
-                            $this->session->set_flashdata('error_message', "Sorry, something went wrong. please try again");
-                            redirect('', 'refresh');
-                         }
+
                           
                       // }
                     }

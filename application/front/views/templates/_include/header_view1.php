@@ -69,17 +69,17 @@
       //echo "Asdf";exit;?>
        <li class="nav-item mt-2">
         
-          <a href="<?php echo base_url('login'); ?>" data-xx-id='2'  class="nav-link modal-btn" data-toggle="modal" data-target="#signUp">Professional Sign Up</a>
+          <a href="<?php echo base_url('login'); ?>" data-xx-id='2'  class="nav-link modal-btn" data-toggle="modal" data-target="#signUp" data-backdrop="static" data-keyboard="false">Professional Sign Up</a>
       </li>
       
       <li class="nav-item mt-2">
-        <a  href="<?php echo base_url('login'); ?>" class="nav-link" data-toggle="modal" data-target="#login">Sign In
+        <a  href="<?php echo base_url('login'); ?>" class="nav-link" data-toggle="modal" data-target="#login" data-backdrop="static" data-keyboard="false">Sign In
           </a>
       </li>
 
       <li class="nav-item mt-2">
         <!-- <a class="nav-link"href="<?php echo base_url("login/register"); ?>">Sign Up</a> -->
-        <a href="<?php echo base_url('login'); ?>" data-xx-id='1' class="nav-link modal-btn" data-toggle="modal" data-target="#signUp">Sign Up</a>
+        <a href="<?php echo base_url('login'); ?>" data-xx-id='1' class="nav-link modal-btn" data-toggle="modal" data-target="#signUp" data-backdrop="static" data-keyboard="false">Sign Up</a>
       </li>
       
     <?php }?>
@@ -127,7 +127,7 @@
           <div class="col-8">
             <form id="login_form" method="post" action="login/user_login">
               <div class="form-group">
-                <label  class="text-center"><span id="failed_text"></span></label>
+                <label  class="text-center"><span id="failed_text" class="errorMessageCls"></span></label>
                 <input type="text" name="email" id="email" class="form-control" placeholder="Email" required><br>
                 <input type="password" name="password" id="password" class="form-control" placeholder="Password" rquired>
                 
@@ -217,7 +217,9 @@
 
                           <button class="btn btn_signup btn-block">Sign Up</button>
                             
-                            <div class="register text-center mt-5"><span>Already registered?</span> <a  href="#" data-toggle="modal" data-target="#login" onclick="closeSignupModal();">Login</a></div>
+                            <!-- <div class="register text-center mt-5"><span>Already registered?</span> <a  href="#" data-toggle="modal" data-target="#login" onclick="closeSignupModal();">Login</a></div> -->
+
+                            <div class="register text-center mt-5"><span>Already registered?</span> <a  href="#" data-toggle="modal" data-target="#login" data-backdrop="static" data-keyboard="false" onclick="closeSignupModal();">Login</a></div>
 
                         </div>
                     </div>
@@ -554,7 +556,7 @@
           <img class="" src="front/images/verified.png">
           <div class="text_head mt-3"><h4>AWSOME!</h4></div>
 
-          <div class="text_head mt-3"><p id="success_text"></p></div>
+          <div class="text_head mt-3"><p id="success_text1"></p></div>
 
           <div class="text_head mt-4"><button class="btn btn1" id="verified" onClick="window.location.href = '<?php echo base_url();?>home/index';return false;">Ok</button></div>
 

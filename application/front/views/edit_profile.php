@@ -181,9 +181,9 @@ function mouseOut() {
                           <div class="form-group">
                             <label for="gender">Gender <span class="cls_star">*</span></label>
                             <select class="form-control" id="radio_gender" name="radio_gender" value="<?=$userlist->gender?>">
-                              <option value="Female">Female</option>
-                              <option value="Male">Male</option>
-                              <option value="Rather not say">Rather not say</option>
+                              <option value="female" <?php if($userlist->gender == 'female'){ echo 'selected'; }?>>Female</option>
+                              <option value="male" <?php if($userlist->gender == 'male'){ echo 'selected'; }?>>Male</option>
+                              <option value="other" <?php if($userlist->gender == 'other'){ echo 'selected'; }?>>Rather not say</option>
                             </select>
                           </div>
                       </div>
